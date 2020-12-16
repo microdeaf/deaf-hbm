@@ -4,9 +4,32 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.microdeaf</groupId>
     <artifactId>deaf-hbm</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>deaf-hbm</name>
-    <description>Common utils for start Spring Boot applications</description>
+    <description>Base utils for start projects with Spring and hibernate</description>
+    <url>https://github.com/microdeaf/deaf-hbm</url>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Mohammad Khosrojerdi</name>
+            <email>khosrojerdi.mohammad@gmail.com</email>
+            <organization>Microdeaf</organization>
+            <organizationUrl>https://github.com/microdeaf</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/microdeaf/deaf-hbm.git</connection>
+        <developerConnection>scm:git:ssh://github.com:microdeaf/deaf-hbm.git</developerConnection>
+        <url>https://github.com/microdeaf/deaf-hbm</url>
+    </scm>
 
     <properties>
         <java.version>8</java.version>
@@ -32,12 +55,6 @@
             <artifactId>spring-data-jpa</artifactId>
             <version>${spring.data.jpa.version}</version>
         </dependency>
-
-        <!--<dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.core.version}</version>
-        </dependency>-->
 
         <dependency>
             <groupId>javax.persistence</groupId>

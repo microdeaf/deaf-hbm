@@ -2,14 +2,15 @@ package org.microdeaf.hbm.repository.impl.hibernate;
 
 import lombok.extern.slf4j.Slf4j;
 import org.microdeaf.common.enums.ActiveType;
+import org.microdeaf.common.utility.PageResult;
 import org.microdeaf.hbm.model.BaseEntity;
 import org.microdeaf.hbm.repository.IGenericRepository;
-import org.microdeaf.common.utility.PageResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.io.Serializable;
@@ -36,15 +37,23 @@ public abstract class GenericRepository<T extends BaseEntity, PK extends Seriali
     public T findOne(String hql, Map<String, Object> params) {
         hql += " and e.isEnabled = " + ActiveType.ENABLED.getStringValue();
         Query query = entityManager.createQuery("from " + clazz().getName() + " e " + hql);
-        params.entrySet().forEach( p -> query.setParameter(p.getKey(), p.getValue()));
-        return (T) query.getSingleResult();
+        params.entrySet().forEach(p -> query.setParameter(p.getKey(), p.getValue()));
+        try {
+            return (T) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     public T findOneDisable(String hql, Map<String, Object> params) {
         hql += " and e.isEnabled = " + ActiveType.DISABLE.getStringValue();
         Query query = entityManager.createQuery("from " + clazz().getName() + " e " + hql);
-        params.entrySet().forEach( p -> query.setParameter(p.getKey(), p.getValue()));
-        return (T) query.getSingleResult();
+        params.entrySet().forEach(p -> query.setParameter(p.getKey(), p.getValue()));
+        try {
+            return (T) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     public List<T> findAll() {
@@ -55,7 +64,7 @@ public abstract class GenericRepository<T extends BaseEntity, PK extends Seriali
     public List<T> findAll(String hql, Map<String, Object> params) {
         hql += " and isEnabled = " + ActiveType.ENABLED.getStringValue();
         Query query = entityManager.createQuery("from " + clazz().getName() + " e " + hql);
-        params.entrySet().forEach( p -> query.setParameter(p.getKey(), p.getValue()));
+        params.entrySet().forEach(p -> query.setParameter(p.getKey(), p.getValue()));
         return query.getResultList();
     }
 
